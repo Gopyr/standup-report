@@ -1,0 +1,26 @@
+{
+  "name": "standup-report",
+  "version": "0.1.0",
+  "description": "Daily standup generator from local git history. Scans repos, parses conventional commits, groups by type, and formats for terminal, Slack, Markdown, or HTML.",
+  "type": "module",
+  "bin": {
+    "standup-report": "src/cli.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "standup",
+    "git",
+    "cli",
+    "productivity",
+    "report"
+  ],
+  "license": "MIT",
+  "files": [
+    "src"
+  ]
+}
