@@ -1,14 +1,14 @@
-# Daily standup report from local git history
+# Laporan standup dari history git lokal
 
-Scan your local repos, filter commits to yours in a time window, group them by conventional-commit type, and paste the result into Slack or your standup doc. Everything runs locally; no data leaves your machine.
+Scan repo lokal kamu, ambil commit kamu sendiri dalam rentang waktu tertentu, kelompokkan berdasarkan tipe conventional commit, lalu tempel hasilnya ke Slack atau dokumen standup. Semuanya jalan lokal; tidak ada data yang keluar dari mesin.
 
-## Why
+## Kenapa
 
-Writing a standup update every morning means reconstructing what you did yesterday across the repos you touched. This tool does that from git history: your commits, your window, grouped and formatted.
+Nulis update standup tiap pagi artinya merekonstruksi apa yang kamu kerjakan kemarin, di semua repo yang kamu sentuh. Tools ini melakukannya dari git history: commit kamu, rentang waktumu, sudah dikelompokkan dan siap tempel.
 
 ## Screenshot
 
-HTML output from a real 30-day scan of local repos (35 commits, 6 repos):
+Output HTML dari scan nyata 30 hari di repo lokal (35 commit, 6 repo):
 
 ![standup-report HTML output](screenshots/html-report.png)
 
@@ -16,21 +16,21 @@ HTML output from a real 30-day scan of local repos (35 commits, 6 repos):
 
 ```bash
 npm install -g .
-# or run without global install
+# atau jalankan tanpa install global
 node src/cli.mjs
 ```
 
 ## Usage
 
 ```bash
-standup-report                 # last 24h, scan default dirs
-standup-report --since 48h     # custom window: 24h, 7d, or a date like 2026-08-20
-standup-report --dir ~/code    # scan a specific directory tree
+standup-report                 # 24 jam terakhir, scan direktori default
+standup-report --since 48h     # rentang bebas: 24h, 7d, atau tanggal seperti 2026-08-20
+standup-report --dir ~/code    # scan pohon direktori tertentu
 standup-report --format slack  # terminal | slack | markdown | html
-standup-report --html out.html # same as --format html, writes to file
+standup-report --html out.html # sama dengan --format html, tulis ke file
 ```
 
-Examples:
+Contoh output:
 
 ```text
 $ standup-report --since 24h
@@ -49,28 +49,28 @@ labboard  (1 commit)
 4 commits total, 1 repo
 ```
 
-## How it works
+## Cara kerja
 
-1. Walk the target directory (default: `~/projects`, `~/code`, `~/dev`, cwd) and find nested git repos (directories containing `.git`).
-2. For each repo, read `git log --pretty` since the window start, filter to your email (`git config user.email`) unless `--author` overrides.
-3. Classify message prefixes: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `perf`, `build`, `ci`, `revert`. Anything else falls under `other`.
-4. Group by repo, then by type, and render the chosen format.
+1. Telusuri direktori target (default: `~/projects`, `~/code`, `~/dev`, cwd) dan cari repo git bersarang (direktori yang punya `.git`).
+2. Untuk tiap repo, baca `git log --pretty` sejak awal rentang, filter ke email kamu (`git config user.email`) kecuali `--author` ditentukan.
+3. Klasifikasikan prefix pesan: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `perf`, `build`, `ci`, `revert`. Sisanya masuk `other`.
+4. Kelompokkan per repo, lalu per tipe, dan render dalam format pilihanmu.
 
-## Formats
+## Format
 
-- **terminal**: compact grouped list (default)
-- **slack**: same content, Slack-friendly plain text with bold headers
-- **markdown**: `## Standup` document with per-repo sections
-- **html**: standalone self-contained page with per-day activity bars and no external assets
+- **terminal**: daftar kelompok yang ringkas (default)
+- **slack**: isi sama, teks polos ramah Slack dengan header tebal
+- **markdown**: dokumen `## Standup` dengan seksi per repo
+- **html**: halaman mandiri dengan bar aktivitas per hari, tanpa aset eksternal
 
-The HTML format is useful when standups go into a wiki or Notion export.
+Format HTML berguna kalau standup masuk ke wiki atau export Notion.
 
-## Limitations
+## Batasan
 
-- Local git only. No GitHub/Jira/Linear integration (out of scope by design).
-- Commit messages must follow a conventional-ish prefix for nice grouping; a message like `wip` lands under `other`.
-- Author filtering uses one email. If you commit under several emails, pass `--author "name|email"` or `--all` to include everyone.
-- Non-repo directories are skipped silently.
+- Git lokal saja. Tidak ada integrasi GitHub/Jira/Linear (memang di luar scope).
+- Pesan commit harus pakai prefix ala conventional biar pengelompokannya rapi; pesan seperti `wip` masuk `other`.
+- Filter author memakai satu email. Kalau kamu commit dengan beberapa email, pakai `--author "name|email"` atau `--all`.
+- Direktori non-repo dilewati diam-diam.
 
 ## Development
 
@@ -78,7 +78,7 @@ The HTML format is useful when standups go into a wiki or Notion export.
 npm test
 ```
 
-Tests cover message classification and window parsing with real fixture commit data.
+Test mencakup klasifikasi pesan dan parsing rentang waktu dengan data commit fixture yang nyata.
 
 ## License
 
